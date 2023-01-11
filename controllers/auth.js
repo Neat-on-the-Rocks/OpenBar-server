@@ -1,9 +1,9 @@
-import bcrypt from 'bcrypt';
-import jwt from "jsonwebtoken"
-import User from '../models/User';
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
+const User = require("../models/User")
 
 /*Register User*/
-export const register = async (req, res) => {
+const register = async (req, res) => {
     try{
         const { firstName, lastName, email, password, pictruePath, friends, location, occupation } = req.body
 
@@ -28,4 +28,8 @@ export const register = async (req, res) => {
     } catch (err){
         res.status(500).json({error: err.message})
     }
+}
+
+module.exports = {
+    register
 }
