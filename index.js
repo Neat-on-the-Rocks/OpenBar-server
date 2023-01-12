@@ -11,6 +11,9 @@ import { fileURLToPath } from "url"
 import { register } from "./controllers/auth.js";
 import authRoutes from "./routes/authRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
+import postsRoutes from "./routes/postsRoutes.js"
+import { verifyToken } from "./middleware/authMiddleware.js"
+import { createPost } from "./controllers/posts.js"
 
 /*Configs*/
 
@@ -41,10 +44,11 @@ const upload = multer({storage})
 
 /*Routes using Middleware*/
 app.post("/auth/register", upload.single("picture"), register) //Api route to register, upload picture middleware and then call controller Stays here because we need the middleware
-
+app.post("/posts", verifyToken, upload.single("picture"), createPost)
 /*Import Routes*/
 app.use("/auth", authRoutes)
 app.use("users", userRoutes)
+app.use("/posts", postsRoutes)
 /*Configure Mongoose*/
 
 const PORT = process.env.PORT || 5000;
