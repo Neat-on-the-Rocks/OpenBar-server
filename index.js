@@ -9,6 +9,8 @@ import morgan from "morgan"
 import path from "path"
 import { fileURLToPath } from "url"
 import { register } from "./controllers/auth.js";
+import authRoutes from "./routes/authRoutes.js"
+import userRoutes from "./routes/userRoutes.js"
 
 /*Configs*/
 
@@ -37,9 +39,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage})
 
-/*Routes*/
-app.post("/auth/register", upload.single("picture"), register) //Api route to register, upload picture middleware and then call controller
+/*Routes using Middleware*/
+app.post("/auth/register", upload.single("picture"), register) //Api route to register, upload picture middleware and then call controller Stays here because we need the middleware
 
+/*Import Routes*/
+app.use("/auth", authRoutes)
+app.use("users", userRoutes)
 /*Configure Mongoose*/
 
 const PORT = process.env.PORT || 5000;
