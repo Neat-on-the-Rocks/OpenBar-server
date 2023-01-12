@@ -45,6 +45,7 @@ app.post("/auth/register", upload.single("picture"), register) //Api route to re
 const PORT = process.env.PORT || 5000;
 
 mongoose
+    .set('strictQuery', false)
     .connect(process.env.MONGO_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true
