@@ -47,7 +47,7 @@ app.post("/auth/register", upload.single("picture"), register) //Api route to re
 app.post("/posts", verifyToken, upload.single("picture"), createPost)
 /*Import Routes*/
 app.use("/auth", authRoutes)
-app.use("users", userRoutes)
+app.use("/users", userRoutes)
 app.use("/posts", postsRoutes)
 /*Configure Mongoose*/
 
