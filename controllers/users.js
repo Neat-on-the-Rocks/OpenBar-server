@@ -13,6 +13,42 @@ export const getUser = async (req, res) => {
     }
 }
 
+//Edit User Profile
+
+export const editUser  = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const {firstName, lastName, location, occupation} = req.body
+
+        const user = await User.findById(id)
+
+        if(!user){
+            res.status(404)
+            throw new Error("User not found")
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+            {_id: id},
+            {
+                firstName,
+                lastName,
+                location,
+                occupation,
+
+            },
+            {
+                new: true,
+                runValidators: true
+            }
+        )
+
+        res.status(200).json(updatedUser);
+        
+    } catch(err){
+        res.status(500).json({error: err.message})
+    } 
+}
+
 //Get user Friends
 
 export const getUserFriends = async (req, res) => {
