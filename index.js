@@ -12,6 +12,8 @@ import { register } from "./controllers/auth.js";
 import authRoutes from "./routes/authRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
 import postsRoutes from "./routes/postsRoutes.js"
+import conversationRoutes from "./routes/conversationRoutes.js"
+import messageRoutes from "./routes/messageRoutes.js"
 import { verifyToken } from "./middleware/authMiddleware.js"
 import { createPost } from "./controllers/posts.js"
 
@@ -49,6 +51,8 @@ app.post("/posts", verifyToken, upload.single("picture"), createPost)
 app.use("/auth", authRoutes)
 app.use("/users", userRoutes)
 app.use("/posts", postsRoutes)
+app.use("/conversation", conversationRoutes)
+app.use("/message", messageRoutes)
 /*Configure Mongoose*/
 
 const PORT = process.env.PORT || 5000;
